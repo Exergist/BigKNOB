@@ -7,28 +7,46 @@
 	"layout": "LAYOUT_ortho_1x5",
 	"macros": [
 		[
-			{"action":"down", "keycodes": ["KC_SCROLL_LOCK"]},
+			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]},
 			{"action":"delay", "duration": 100},
-			{"action": "up","keycodes": ["KC_SCROLL_LOCK"]}
+			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_1"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_ENTER"]}
+			
 		],
 		[
 			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]},
-			{"action":"delay", "duration": 60},
-			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]}
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_2"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_ENTER"]}
 		],
 		[
-			"ding!",
-			{"action":"beep"}
+			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_3"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_ENTER"]}
 		],
 		[
-			{"action":"tap", "keycodes": ["F1"]},
-			{"action":"delay", "duration": 1000},
-			{"action":"tap", "keycodes": ["PGDN"]}
+			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_4"]},
+			{"action":"delay", "duration": 100},
+			{"action":"tap", "keycodes": ["KC_ENTER"]}
 		]
 	],
 	"layers": [
 		[
-			"KC_F3",
+			"KC_F13",
 			"QK_MACRO_0",
 			"QK_MACRO_1",
 			"QK_MACRO_2",
