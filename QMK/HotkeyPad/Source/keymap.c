@@ -5,13 +5,13 @@
 //   | '_ \  | |  / _` | |  <   | . ` | | |  | | |  _ <
 //   | |_) | | | | (_| | | . \  | |\  | | |__| | | |_) |
 //   |_.__/  |_|  \__, | |_|\_\ |_| \_|  \____/  |____/
-//                 __/ |                       Version 2
+//                 __/ |
 //                |___/    
 */
 
 //{ NOTES
 
-// Custom keymap for bigKNOBv2 by Exergist (2021)
+// Custom keymap for bigKNOB by Exergist (2021)
 // Modified from original source code with:
 //   • Layer cycling via encoder rotation
 //   • Next layer via encoder single-tap
@@ -29,7 +29,7 @@
 
 //{ ACKNOWLEDGEMENTS
 
-// bigKNOBv2 hardware and original source code by Craig Gardner (https://github.com/LeafCutterLabs)
+// bigKNOB hardware and original source code by Craig Gardner (https://github.com/LeafCutterLabs)
 // ASCII art by patorjk (https://patorjk.com/software/taag/)
 
 //}
@@ -319,9 +319,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 //{ RAW HID
 
-//{ bigKNOBv2 HID Info
+//{ bigKNOB HID Info
 
-// This is specific to your bigKNOBv2
+// This is specific to your bigKNOB
 // Vendor ID	= 	0xCEEB
 // Product ID 	= 	0x0007
 // Usage Page 	= 	0xFF60
