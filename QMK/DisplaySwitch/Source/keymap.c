@@ -216,7 +216,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 //               |    .'          `.   .------------..------------..------------..------------.  |
 //               |   /              \  |            ||            ||            ||            |  |
 //               |  |                | |            ||            ||            ||            |  |
-//  USB-C <====> |  |     Encoder    | |  Button 1  ||  Button 2  ||  Button 3  ||  Button 4  |  |
+//  USB-C <====> |  |     Encoder    | |  Button1   ||  Button2   ||  Button3   ||  Button4   |  |
 //               |  |                | |            ||            ||            ||            |  |
 //               |   \              /  |            ||            ||            ||            |  |
 //               |    `._        _.'   '------------''------------''------------''------------'  |
@@ -227,7 +227,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // Defines the macropad layers and their associated keycodes for encoder and key presses
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 {
-	// Format = Encoder, Button 1, Button 2, Button 3, Button 4
+	// Format = Encoder, Button1, Button2, Button3, Button4
 	
 	// TD(ENCODER_DANCE) = [Single-Tap = Activate Next Layer, Double-Tap = Toggle RGB LEDs On/Off, Press-Hold = Activate Previous Layer]
 	
