@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    leafcutterlabs
 #define PRODUCT         bigKNOB
 #define DESCRIPTION     5 key with rotary board
-#define RAW_USAGE_PAGE 	0xFF60 // Raw HID communication
-#define RAW_USAGE_ID 	0x61 // Raw HID communication
+#define RAW_USAGE_PAGE 	0xFF60 // Raw HID communication (added by Exergist)
+#define RAW_USAGE_ID 	0x61 // Raw HID communication (added by Exergist)
 
 /* Key matrix size */
 #define MATRIX_ROWS 1
@@ -57,13 +57,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Rotary encoder 1,2,3 closest to usb port is 0*/
 #define ENCODERS_PAD_A { D0}
 #define ENCODERS_PAD_B { D2}
-#define ENCODER_RESOLUTION 2 //default/suggested
+#define ENCODER_RESOLUTION 2 // default/suggested
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN C7 //D3 - underglow C7 - backlight
+#define RGB_DI_PIN C7 // D3 - underglow C7 - backlight
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 5    // Number of LEDs
-#define RGBLIGHT_SLEEP // RGB lighting will be switched off when the host goes to sleep (Exergist)
+#define RGBLIGHT_SLEEP // RGB lighting will be switched off when the host goes to sleep (added by Exergist)
 
 #define MUSIC_MASK (keycode != KC_NO)
 #define MIDI_ADVANCED
