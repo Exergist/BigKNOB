@@ -79,8 +79,9 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
 <details>
 <summary> <b>Code-Only Method</b> </summary>
 
- 1. Go through [The QMK Tutorial](https://docs.qmk.fm/#/newbs).
- 2. Insert the desired _config.h_, _rules.mk_, and _keymap.c_ files where appropriate prior to building and uploading the firmware.
+ 1. Go through [The QMK Tutorial](https://docs.qmk.fm/#/newbs)
+ 2. Create the desired keyboard behavior by building content in the _keymap.c_ file. 
+ 3. Insert the _keymap.c_ and (if needed or desired) _config.h_, and _rules.mk_ files where appropriate prior to compiling the firmware.
 </details>
 
 ### Installing the Firmware
