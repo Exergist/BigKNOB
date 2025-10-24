@@ -1,11 +1,11 @@
 ![image](https://user-images.githubusercontent.com/31357974/120911848-11029f80-c650-11eb-8896-d142378cb411.png)
 
-# BigKNOBv2
+# BigKNOB
 
 ## What Is This?
 This project includes:
-1. QMK files for BigKNOBv2 macropad controller with RGB LED key switches.
-2. C# source for application enabling bidirectional communication between BigKNOBv2 and the host computer. 
+1. QMK files for BigKNOB macropad controller with RGB LED key switches.
+2. C# source for application enabling bidirectional communication between BigKNOB and the host computer. 
 
 ## Key Map
 
@@ -44,14 +44,14 @@ This project includes:
  2. Insert the desired _config.h_, _rules.mk_, and _keymap.c_ files where appropriate prior to building and uploading the firmware. 
    
 ## Notes
- * My BigKNOBv2 was custom-ordered through [Etsy](https://www.etsy.com/shop/LeafCutterLabs?ref=simple-shop-header-name&listing_id=955302431). 
- * The keymap was optimized for use with the BigKNOBv2 dented encoder. 
+ * My BigKNOB was custom-ordered through [Etsy](https://www.etsy.com/shop/LeafCutterLabs?ref=simple-shop-header-name&listing_id=955302431). 
+ * The keymap was optimized for use with the BigKNOB dented encoder. 
  * Additional QMK resources are compiled in the [QMK Syllabus](https://docs.qmk.fm/#/syllabus).
- * A [VoiceAttack plugin](https://github.com/Exergist/VAHidInterface) for communicating with BigKNOBv2 is also available.
+ * A [VoiceAttack plugin](https://github.com/Exergist/VAHidInterface) for communicating with BigKNOB is also available.
 
 ## Acknowledgements
 
-* BigKNOBv2 hardware design and original QMK source files are by Craig Gardner from [LeafCutterLabs](https://github.com/LeafCutterLabs).
+* BigKNOB hardware design and original QMK source files are by Craig Gardner from [LeafCutterLabs](https://github.com/LeafCutterLabs).
 * [QMK](https://qmk.fm/) is developed and maintained by Jack Humbert of OLKB with contributions from the community (and Hasu).
 * [HidLibrary](https://github.com/mikeobrien/HidLibrary) is developed and maintained by Mike O'Brien and Austin Mullins (and other contributors).
 * [ini-parser](https://github.com/rickyah/ini-parser) was developed by Ricardo Amores Hernandez (and other contributors).
