@@ -7,8 +7,9 @@ This project includes:
 1. QMK files for BigKNOB macropad controller with RGB LED key switches.
 2. C# source for application enabling bidirectional communication between BigKNOB and the host computer. 
 
-## Key Map
-
+## Key Maps
+### HotkeyPad
+Makes function keys F13-F24 readily accessible. Jump to the files [here](https://github.com/Exergist/BigKNOB/tree/main/QMK/HotkeyPad). 
  * Encoder
    * Single-Tap = Next Layer
    * Double-Tap = Toggle RGB LEDs On/Off
@@ -36,6 +37,19 @@ This project includes:
    * Layer 1 = Green
    * Layer 2 = Blue
 
+### DisplaySwitch
+Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/desktop-kvm-switches/cs1824/) 4-port KVMP switch. Jump to the files [here](https://github.com/Exergist/BigKNOB/tree/main/QMK/DisplaySwitch/). 
+ * Encoder
+   * Single-Tap = WIP
+   * Double-Tap = WIP
+   * Press-Hold = WIP
+   * Clockwise Rotation = WIP
+   * Counter-Clockwise Rotation = WIP
+ * Button 1 = WIP
+ * Button 2 = WIP
+ * Button 3 = WIP
+ * Button 4 = WIP
+
 ## Raw HID Functionality
  * Move to specified layer
 
@@ -44,15 +58,15 @@ This project includes:
  2. Insert the desired _config.h_, _rules.mk_, and _keymap.c_ files where appropriate prior to building and uploading the firmware. 
    
 ## Notes
- * My BigKNOB was custom-ordered through [Etsy](https://www.etsy.com/shop/LeafCutterLabs?ref=simple-shop-header-name&listing_id=955302431). 
+ * My [BigKNOB](https://www.etsy.com/listing/811162898/bigknob-customizable-programmable-usb-c) was custom-ordered through [LeafCutterLabs on Etsy](https://www.etsy.com/shop/LeafCutterLabs) on 5/9/2021. 
  * The keymap was optimized for use with the BigKNOB dented encoder. 
  * Additional QMK resources are compiled in the [QMK Syllabus](https://docs.qmk.fm/#/syllabus).
  * A [VoiceAttack plugin](https://github.com/Exergist/VAHidInterface) for communicating with BigKNOB is also available.
 
 ## Acknowledgements
 
-* BigKNOB hardware design and original QMK source files are by Craig Gardner from [LeafCutterLabs](https://github.com/LeafCutterLabs).
-* [QMK](https://qmk.fm/) is developed and maintained by Jack Humbert of OLKB with contributions from the community (and Hasu).
+* BigKNOB hardware design and original QMK source files are by [Craig Gardner from LeafCutterLabs](https://github.com/LeafCutterLabs).
+* [QMK](https://qmk.fm/about) is developed and maintained by Jack Humbert of OLKB with contributions from the community (and Hasu).
 * [HidLibrary](https://github.com/mikeobrien/HidLibrary) is developed and maintained by Mike O'Brien and Austin Mullins (and other contributors).
 * [ini-parser](https://github.com/rickyah/ini-parser) was developed by Ricardo Amores Hernandez (and other contributors).
 * Keymap header ASCII art by [patorjk](https://patorjk.com/software/taag/).
