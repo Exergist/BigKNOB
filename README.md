@@ -58,7 +58,7 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
  2. Insert the desired _config.h_, _rules.mk_, and _keymap.c_ files where appropriate prior to building and uploading the firmware. 
    
 ## Notes
- * My [BigKNOB](https://www.etsy.com/listing/811162898/bigknob-customizable-programmable-usb-c) was custom-ordered through [LeafCutterLabs on Etsy](https://www.etsy.com/shop/LeafCutterLabs) on 5/9/2021. 
+ * My [BigKNOB](https://www.etsy.com/listing/811162898/bigknob-customizable-programmable-usb-c) (identified as the "v2" version at the time) was custom-ordered through [LeafCutterLabs on Etsy](https://www.etsy.com/shop/LeafCutterLabs) in May 2021. 
  * The keymap was optimized for use with the BigKNOB dented encoder. 
  * Additional QMK resources are compiled in the [QMK Syllabus](https://docs.qmk.fm/#/syllabus).
  * A [VoiceAttack plugin](https://github.com/Exergist/VAHidInterface) for communicating with BigKNOB is also available.
