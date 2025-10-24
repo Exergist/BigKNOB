@@ -88,14 +88,20 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
 <details>
 <summary> <b>QMK Toolbox Method</b> </summary>
 
- 1. Download/install [QMK Toolbox](https://qmk.fm/toolbox).
- 2. Select the hex file, set MCU to atmega32u4, and check Auto-Flash.
+ 1. Download/install [QMK Toolbox](https://qmk.fm/toolbox). Then launch the application.
+ 2. Install device drivers by navigating to the "Tools" tab and selecting "Install Drivers" (requires administrative priviledges).
+ 3. Select the hex file, set MCU to atmega32u4, and check Auto-Flash.
     
     <img width="867" height="702" alt="image" src="https://github.com/user-attachments/assets/0b12e77b-b5c9-4c67-a894-3e2cd32fc850" />
 
- 3. Press the button under the bigKNOB device (may have a small hole in the case). The device should reboot and load the new firmware.
+ 4. Press the button under the bigKNOB device (may have a small hole in the case). The device should reboot and load the new firmware.
     
     <img width="820" height="724" alt="image" src="https://github.com/user-attachments/assets/11d00ad7-0730-4cda-81e5-027d5cc2fb0a" />
+
+    Here is example output from the QMK Toolbox after successfully flashing the bigKNOB device:
+    
+    <img width="726" height="320" alt="image" src="https://github.com/user-attachments/assets/85225997-a28b-43a5-9bb0-87ef254681f9" />
+
 </details>
 
 ## Notes
