@@ -106,7 +106,7 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
 
 ## Acknowledgements
 
-* BigKNOB hardware design, original QMK source files, and steps for using the QMK Configurator and the QMK Toolbox are by [Craig Gardner from LeafCutterLabs](https://github.com/LeafCutterLabs).
+* BigKNOB hardware design, original QMK source files, and steps for using the QMK Configurator and the QMK Toolbox are by [Craig Gardner from LeafCutterLabs](https://github.com/LeafCutterLabs/bigKNOB).
 * [QMK](https://qmk.fm/about) is developed and maintained by Jack Humbert of OLKB with contributions from the community (and Hasu).
 * [HidLibrary](https://github.com/mikeobrien/HidLibrary) is developed and maintained by Mike O'Brien and Austin Mullins (and other contributors).
 * [ini-parser](https://github.com/rickyah/ini-parser) was developed by Ricardo Amores Hernandez (and other contributors).
