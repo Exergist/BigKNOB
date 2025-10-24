@@ -9,7 +9,9 @@
 //                |___/    
 */
 
-//{ NOTES
+// ***********
+// *  NOTES  *
+// ***********
 
 // Custom keymap for bigKNOB by Exergist (2021)
 // Modified from original source code with:
@@ -25,34 +27,32 @@
 //   • Expanded new line and tab formatting
 //   • Comments
 
-//}
-
-//{ ACKNOWLEDGEMENTS
+// **********************
+// *  ACKNOWLEDGEMENTS  *
+// **********************
 
 // bigKNOB hardware and original source code by Craig Gardner (https://github.com/LeafCutterLabs)
 // ASCII art by patorjk (https://patorjk.com/software/taag/)
 
-//}
-
-//{ INCLUDE & DEFINE
+// **********************
+// *  INCLUDE & DEFINE  *
+// **********************
 
 #include QMK_KEYBOARD_H
-
 #include "raw_hid.h"
-
 #define RBG_VAL 120
 
-//}
-
-//{ GLOBAL VARIABLES
+// **********************
+// *  GLOBAL VARIABLES  *
+// **********************
 
 uint8_t selected_layer = 0; // Currently selected layer
 int encoder_buffer = 0; // Counter for encoder input events
 int encoder_threshold = 6; // Number of encoder input events (steps) before layer may cycle
 
-//}
-
-//{ METHOD DECLARATION
+// ************************
+// *  METHOD DECLARATION  *
+// ************************
 
 void NextLayer(void);
 void PreviousLayer(void);
@@ -63,10 +63,11 @@ void ErrorFlash(void);
 void LightFlash(void);
 ///void SendHID(void);
 
-//}
+// ********************************
+// *  CUSTOM KEYCODE DECLARATION  *
+// ********************************
 
-/* //{ CUSTOM KEYCODE DECLARATION
-
+/* 
 enum custom_keycodes
 {
 	CTRLF13 = SAFE_RANGE,
@@ -75,10 +76,11 @@ enum custom_keycodes
 	CTRLF16,
 	KC_SendHID
 };
+*/
 
-//} */
-
-//{ LAYERS
+// ************
+// *  LAYERS  *
+// ************
 
 // Layer declarations
 enum layers
@@ -97,11 +99,13 @@ layer_state_t layer_state_set_user(layer_state_t state)
 	return state; // Return current layer (state)
 }
 
-//}
+// ***************
+// *  TAP DANCE  *
+// ***************
 
-//{ TAP DANCE
-
-//{ Tap Dance Declarations
+// |------------------------|
+// | Tap Dance Declarations |
+// |------------------------|
 
 // Tap Dance identifier declaration
 enum
@@ -109,7 +113,7 @@ enum
 	ENCODER_DANCE
 };
 
-// Tap Dance action types declaration
+// Tap Dance action type declaration
 typedef enum
 {
 	TD_NONE,
@@ -126,19 +130,19 @@ typedef struct
 	td_state_t state;
 } td_tap_t;
 
-//}
-
-//{ Tap Dance Definitions
+// |-----------------------|
+// | Tap Dance Definitions |
+// |-----------------------|
 
 // Method for retrieving requested Tap Dance state based on user input
-td_state_t cur_dance(qk_tap_dance_state_t *state)
+td_state_t CurrentDance(qk_tap_dance_state_t *state)
 {
     if (state->count == 1) // Single-tap
 	{
-        if (state->interrupted || !state->pressed)
-			return TD_SINGLE_TAP;
-        else // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
-			return TD_SINGLE_HOLD;
+        if (state->interrupted || !state->pressed) // Check if key press was interrupted OR key state is not "pressed" (being held down)
+			return TD_SINGLE_TAP; // Single-tap confirmed
+        else // Key has not been interrupted AND the key is being held
+			return TD_SINGLE_HOLD; // Means the type of tap is actually a "HOLD"
     }
 	else if (state->count == 2) // Double-tap
 		return TD_DOUBLE_TAP;
@@ -146,16 +150,16 @@ td_state_t cur_dance(qk_tap_dance_state_t *state)
 		return TD_UNKNOWN;
 }
 
-// Create an instance of 'td_tap_t' for the 'encoder' tap dance
+// Create an instance of td_tap_t for the encoder Tap Dance
 static td_tap_t encoderTap_state = {
     .is_press_action = true,
     .state = TD_NONE
 };
 
-// Method run when Tap Dance action finishes
-void encoder_finished(qk_tap_dance_state_t *state, void *user_data)
+// Method to run when Tap Dance action finishes
+void EncoderTapFinished(qk_tap_dance_state_t *state, void *user_data)
 {
-    encoderTap_state.state = cur_dance(state);
+    encoderTap_state.state = CurrentDance(state);
     switch (encoderTap_state.state)
 	{
 		case TD_SINGLE_TAP:
@@ -177,8 +181,8 @@ void encoder_finished(qk_tap_dance_state_t *state, void *user_data)
 	encoderTap_state.state = TD_NONE; // Reset encoderTap_state
 }
 
-/* // Method run when Tap Dance action resets
-void encoder_reset(qk_tap_dance_state_t *state, void *user_data)
+/* // Method to run when Tap Dance action resets
+void EncoderTapReset(qk_tap_dance_state_t *state, void *user_data)
 {
 	switch (encoderTap_state.state)
 	{
@@ -200,17 +204,18 @@ void encoder_reset(qk_tap_dance_state_t *state, void *user_data)
 
 // Tap Dance action definition
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [ENCODER_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, encoder_finished, NULL)
-	///[ENCODER_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, encoder_finished, encoder_reset)
+    [ENCODER_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, EncoderTapFinished, NULL)
+	///[ENCODER_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, EncoderTapFinished, EncoderTapReset)
 };
 
-//}
+// ************
+// *  KEYMAP  *
+// ************
 
-//}
+// |---------------|
+// | Keypad Layout |
+// |---------------|
 
-//{ KEYMAP
-
-//{ Layout
 //
 //                .-------------------------------------------------------------------------------.
 //                |      _.-""""-._                                                               |
@@ -224,13 +229,17 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 //                |       `-....-'                                                                |
 //                '-------------------------------------------------------------------------------'
 //																			    ASCII art by patorj
-//}
+//
+
+// |---------------|
+// | Device Keymap |
+// |---------------|
 
 // Defines the macropad layers and their associated keycodes for encoder and key presses
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 {
+	// NOTES:
 	// Format = Encoder, Button1, Button2, Button3, Button4
-	
 	// TD(ENCODER_DANCE) = [Single-Tap = Activate Next Layer, Double-Tap = Toggle RGB LEDs On/Off, Press-Hold = Activate Previous Layer]
 	
 	[_PRIMARY] = LAYOUT // Layer 0
@@ -250,11 +259,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 	)
 };
 
-//}
+// **********************
+// *  ENCODER ROTATION  *
+// **********************
 
-//{ ENCODER ROTATION
-
-// Define behavior for rotation of the encoder
+// Method for defining behavior for rotation of the encoder
+// Note that this might be depreciated as of 10/24/2025. See https://docs.qmk.fm/ChangeLog/20250525#deprecation-of-encoder-update-kb-user
 void encoder_update_user(uint8_t index, bool clockwise)
 {
 	if (index == 0)
@@ -284,11 +294,11 @@ void encoder_update_user(uint8_t index, bool clockwise)
 	}
 }
 
-//}
+// *******************************
+// *  CUSTOM KEYCODE PROCESSING  *
+// *******************************
 
-/* //{ CUSTOM KEYCODE PROCESSING
-
-// Define behavior for custom keycodes
+/* // Method for defining behavior for custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
 	switch (keycode) // Switch statement for handling triggering keycodes
@@ -315,21 +325,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 			return false;
 	}
 	return true; // Effectively process ALL other keycodes "normally"
-};
+}; */
 
-//} */
+// *************
+// *  RAW HID  *
+// *************
 
-//{ RAW HID
-
-//{ bigKNOB HID Info
+// |------------------|
+// | bigKNOB HID Info |
+// |------------------|
 
 // This is specific to your bigKNOB
 // Vendor ID	= 	0xCEEB
 // Product ID 	= 	0x0007
 // Usage Page 	= 	0xFF60
 // Usage (ID) 	= 	0x0061
-
-//}
 
 // Method for receiving data from host computer via a HID interface
 void raw_hid_receive(uint8_t *data, uint8_t length)
@@ -362,14 +372,14 @@ void SendHID(void)
 	raw_hid_send(data, RAW_EPSIZE); // Call method to send data to host computer
 } */
 
-//}
-
-//{ CUSTOM METHODS
+// ************************
+// *  ADDITIONAL METHODS  *
+// ************************
 
 // Calculate highest layer number
 int highest_layer_number = sizeof(keymaps)/sizeof(keymaps[0]) - 1;
 
-// Method for moving to next layer in the stack
+// Method for moving to next layer in the layer stack
 void NextLayer(void)
 {
 	int moveLayer = selected_layer;
@@ -380,7 +390,7 @@ void NextLayer(void)
 	MoveToLayer(moveLayer);
 }
 
-// Method for moving to the previous layer in the stack
+// Method for moving to the previous layer in the layer stack
 void PreviousLayer(void)
 {
 	int moveLayer = selected_layer;
@@ -391,7 +401,7 @@ void PreviousLayer(void)
 	MoveToLayer(moveLayer);
 }
 
-// Method for moving to a specific layer in the stack
+// Method for moving to a specific layer in the layer stack
 void MoveToLayer(int layer)
 {
 	if (layer >= 0 && layer <= highest_layer_number)
@@ -476,4 +486,3 @@ void LightFlash(void)
 		timer += (timeStep * 2);
 	}
 }
-//}
