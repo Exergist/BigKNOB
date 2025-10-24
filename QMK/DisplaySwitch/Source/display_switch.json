@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "notes": "",
+  "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
+  "keyboard": "leafcutterlabs/bigknob",
+  "keymap": "display_switch",
+  "layout": "LAYOUT_ortho_1x5",
+  "macros": [
+		[
+			{"action":"down", "keycodes": ["KC_SCROLL_LOCK"]},
+			{"action":"delay", "duration": 100},
+			{"action": "up","keycodes": ["KC_SCROLL_LOCK"]}
+		],
+		[
+			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]}
+			{"action":"delay", "duration": 60},
+			{"action":"tap", "keycodes": ["KC_SCROLL_LOCK"]}
+		],
+		[
+			"ding!",
+			{"action":"beep"}
+		],
+		[
+			{"action":"tap", "keycodes": ["F1"]},
+			{"action":"delay", "duration": 1000},
+			{"action":"tap", "keycodes": ["PGDN"]}
+		]
+	],
+  "layers": [
+		[
+			"QK_MACRO_0",
+			"QK_MACRO_1",
+			"QK_MACRO_2",
+			"QK_MACRO_3",
+			"QK_MACRO_4"
+		]
+	],
+  "author": "Exergist"
+}
