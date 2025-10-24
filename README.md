@@ -4,7 +4,7 @@
 
 ## What Is This?
 This project includes:
-1. QMK files for BigKNOB macropad controller with RGB LED key switches.
+1. QMK files for [BigKNOB](https://www.etsy.com/listing/811162898/bigknob-customizable-programmable-usb-c) macropad controller with RGB LED key switches.
 2. C# source for application enabling bidirectional communication between BigKNOB and the host computer. 
 
 ## Key Maps
