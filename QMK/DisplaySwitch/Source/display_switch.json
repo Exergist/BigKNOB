@@ -28,11 +28,11 @@
 	],
 	"layers": [
 		[
+			"KC_F3",
 			"QK_MACRO_0",
 			"QK_MACRO_1",
 			"QK_MACRO_2",
-			"QK_MACRO_3",
-			"KC_F3"
+			"QK_MACRO_3"
 		]
 	],
 	"author": "Exergist"
