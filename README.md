@@ -8,6 +8,9 @@ This project includes:
 2. C# source for application enabling bidirectional communication between BigKNOB and the host computer. 
 
 ## Key Maps
+### Layout
+<img width="636" height="245" alt="image" src="https://github.com/user-attachments/assets/1b8b05e4-25ac-4d93-8cf4-edc0ba5434a0" />
+
 ### HotkeyPad
 Makes function keys F13-F24 readily accessible. Jump to the files [here](https://github.com/Exergist/BigKNOB/tree/main/QMK/HotkeyPad). 
  * Encoder
@@ -37,18 +40,18 @@ Makes function keys F13-F24 readily accessible. Jump to the files [here](https:/
    * Layer 1 = Green
    * Layer 2 = Blue
 
-### DisplaySwitch
+### DisplaySwitch (WORK IN PROGRESS)
 Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/desktop-kvm-switches/cs1824/) 4-port KVMP switch. Jump to the files [here](https://github.com/Exergist/BigKNOB/tree/main/QMK/DisplaySwitch/). 
  * Encoder
-   * Single-Tap = WIP
+   * Single-Tap = F13
    * Double-Tap = WIP
    * Press-Hold = WIP
    * Clockwise Rotation = WIP
    * Counter-Clockwise Rotation = WIP
- * Button 1 = WIP
- * Button 2 = WIP
- * Button 3 = WIP
- * Button 4 = WIP
+ * Button 1 = Switch to port 1
+ * Button 2 = Switch to port 2
+ * Button 3 = Switch to port 3
+ * Button 4 = Switch to port 4
 
 ## Raw HID Functionality
  * Move to specified layer
