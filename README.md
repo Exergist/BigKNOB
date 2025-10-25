@@ -80,8 +80,12 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
 <summary> <b>Code-Only Method</b> </summary>
 
  1. Go through [The QMK Tutorial](https://docs.qmk.fm/#/newbs)
- 2. Create the desired keyboard behavior by building content in the _keymap.c_ file. 
- 3. Insert the _keymap.c_ and (if needed or desired) _config.h_, and _rules.mk_ files where appropriate prior to compiling the firmware.
+ 2. Create the desired keyboard behavior by building content in the _keymap.c_ file.
+ 3. Add (or copy from other bigKNOB efforts) _config.h_ and _rules.mk_ files if needed (most likely YES) into the same location as the _keymap.c_ file.
+ 4. When _keymap.c_ and (if applicable) _config.h_ and _rules.mk_ are ready, go back to QMK MSYS and run `qmk compile -kb leafcutterlabs/bigknob -km [your key map name fpr the project]`.
+    * Example: `qmk compile -kb leafcutterlabs/bigknob -km DisplaySwitch`
+ 5. WIP - where is the outputted firmware hex file?
+
 </details>
 
 ### Installing the Firmware
