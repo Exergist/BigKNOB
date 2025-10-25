@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
+// USB Device descriptor parameters
 #define VENDOR_ID       0xCEEB
 #define PRODUCT_ID      0x0007
 #define DEVICE_VER      0x0001
