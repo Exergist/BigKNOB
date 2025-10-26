@@ -1,13 +1,13 @@
 /*
-//    _       _           _  __  _   _    ____    ____
-//   | |     (_)         | |/ / | \ | |  / __ \  |  _ \
+//    _       _           _  __  _   _    ____    ____  
+//   | |     (_)         | |/ / | \ | |  / __ \  |  _ \ 
 //   | |__    _    __ _  | ' /  |  \| | | |  | | | |_) |
-//   | '_ \  | |  / _` | |  <   | . ` | | |  | | |  _ <
+//   | '_ \  | |  / _` | |  <   | . ` | | |  | | |  _ < 
 //   | |_) | | | | (_| | | . \  | |\  | | |__| | | |_) |
-//   |_.__/  |_|  \__, | |_|\_\ |_| \_|  \____/  |____/
-//                 __/ |
-//                |___/    
-//
+//   |_.__/  |_|  \__, | |_|\_\ |_| \_|  \____/  |____/ 
+//                 __/ |								
+//                |___/    				  DISPLAY SWITCH
+//														
 */
 
 // *************
@@ -33,7 +33,6 @@
 // **********************
 
 #include QMK_KEYBOARD_H
-///#include "raw_hid.h"
 
 // ********************************
 // *  CUSTOM KEYCODE DECLARATION  *
@@ -55,18 +54,6 @@ enum customKeycodes
 
 int selectedPort = 0; // Currently selected port on ATEN CS1824 KVMP switch
 int ledIlluminationTime = 1000; // Time in milliseconds to illuminate LEDs
-
-// ************
-// *  LAYERS  *
-// ************
-
-// Declare keymap layers
-enum layers
-{ 
-	_PRIMARY
-	// _SECONDARY,
-	// _TERTIARY
-};
 
 // ************
 // *  KEYMAP  *
@@ -96,25 +83,7 @@ enum layers
 
 // Defines the behavior for encoder and key presses across all applicable layers
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	// NOTES:
-	// Format = Encoder, Button1, Button2, Button3, Button4
-	// [WIP] TD(ENCODER_DANCE) = [Single-Tap = Activate Next Layer, Double-Tap = Toggle RGB LEDs On/Off, Press-Hold = Activate Previous Layer]
-	
-	[_PRIMARY] = LAYOUT // Layer 0 keymap
-	(
-		// F13, F14, F15, F16, F17
-		PORT_CHECK, MACRO_1, MACRO_2, MACRO_3, MACRO_4
-	)
-	// [_SECONDARY] = LAYOUT // Layer 1 keymap
-	// (
-		// // ENCODER_DANCE, F17, F18, F19, F20
-		// TD(ENCODER_DANCE), KC_F17, KC_F18, KC_F19, KC_F20
-	// ),
-	// [_TERTIARY] = LAYOUT // Layer 2 keymap
-	// (
-		// // ENCODER_DANCE, F21, F22, F23, F24
-		// TD(ENCODER_DANCE), KC_F21, KC_F22, KC_F23, KC_F24
-	// )
+	[0] = LAYOUT( PORT_CHECK, MACRO_1, MACRO_2, MACRO_3, MACRO_4 ) // Format = Encoder, Button1, Button2, Button3, Button4
 };
 
 // |------------------|
@@ -124,10 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Defines the behavior for encoder rotation across all applicable layers
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
-    // [1] = { ENCODER_CCW_CW(UG_HUED, UG_HUEU),  ENCODER_CCW_CW(UG_SATD, UG_SATU)  },
-    // [2] = { ENCODER_CCW_CW(UG_VALD, UG_VALU),  ENCODER_CCW_CW(UG_SPDD, UG_SPDU)  },
-    // [3] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT),  ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) } // Format = Counter-clockwise action, clockwise action
 };
 #endif
 
@@ -178,8 +144,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				error_flash(); // Flash error pattern on bigKNOB
 			}
 			else {
-				///all_leds_off_noeeprom(); // Turn off all LEDs
-				///wait_ms(500); // Brief pause
 				rgblight_sethsv_at(HSV_GREEN, selectedPort-1); // Turn on LED corresponding to selected port
 				wait_ms(ledIlluminationTime); // Brief pause
 				all_leds_off_noeeprom(); // Turn off all LEDs
