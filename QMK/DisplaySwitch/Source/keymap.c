@@ -25,31 +25,27 @@
 // bigKNOB hardware and original source code by Craig Gardner (https://github.com/LeafCutterLabs)
 // ASCII art by patorjk (https://patorjk.com/software/taag/)
 
-/* Copyright 2021 Craig Gardner
-  *
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-  * the Free Software Foundation, either version 2 of the License, or
-  * (at your option) any later version.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
-  *
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 // **********************
 // *  INCLUDE & DEFINE  *
 // **********************
 
 #include QMK_KEYBOARD_H
 #include "raw_hid.h"
-#define RBG_VAL 50 // Sets initial RGB color for key backlights?
 
 #define _MAIN 0 // In default keymap, not sure if needed
+
+// ********************************
+// *  CUSTOM KEYCODE DECLARATION  *
+// ********************************
+
+// Name and assigned unique numbers for custom keycodes
+enum customKeycodes
+{
+	MACRO_1 = SAFE_RANGE,
+	MACRO_2,
+	MACRO_3,
+	MACRO_4
+};
 
 // ************
 // *  LAYERS  *
@@ -95,17 +91,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// Format = Encoder, Button1, Button2, Button3, Button4
 	// [WIP] TD(ENCODER_DANCE) = [Single-Tap = Activate Next Layer, Double-Tap = Toggle RGB LEDs On/Off, Press-Hold = Activate Previous Layer]
 	
-	[_PRIMARY] = LAYOUT // Layer 0
+	[_PRIMARY] = LAYOUT // Layer 0 keymap
 	(
-		// F13, F14, F15, F16, F16
-		KC_F13, KC_F14, KC_F15, QK_UNDERGLOW_HUE_UP, QK_UNDERGLOW_TOGGLE
+		// F13, F14, F15, F16, F17
+		QK_UNDERGLOW_HUE_UP, MACRO_1, MACRO_2, MACRO_3, MACRO_4
 	)
-	// [_SECONDARY] = LAYOUT // Layer 1
+	// [_SECONDARY] = LAYOUT // Layer 1 keymap
 	// (
 		// // ENCODER_DANCE, F17, F18, F19, F20
 		// TD(ENCODER_DANCE), KC_F17, KC_F18, KC_F19, KC_F20
 	// ),
-	// [_TERTIARY] = LAYOUT // Layer 2
+	// [_TERTIARY] = LAYOUT // Layer 2 keymap
 	// (
 		// // ENCODER_DANCE, F21, F22, F23, F24
 		// TD(ENCODER_DANCE), KC_F21, KC_F22, KC_F23, KC_F24
@@ -126,12 +122,82 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
+// ***********************
+// *  METHOD DEFINITION  *
+// ***********************
+
 // Method run as the very last task in the keyboard initialization process
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();                               // Ensure RGB LEDs are on
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);       // Set RGB mode to solid color
     rgblight_sethsv_noeeprom(HSV_GREEN);                      // Set initial RGB color
 }
+
+// Method run whenever a key is pressed or released
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case MACRO_1:
+        if (record->event.pressed) {
+            // when keycode MACRO_1 is pressed
+            SEND_STRING(SS_TAP(X_SCROLL_LOCK) 
+						SS_DELAY(100) 
+						SS_TAP(X_SCROLL_LOCK) 
+						SS_DELAY(100) 
+						SS_TAP(X_1)
+						SS_DELAY(100)
+						SS_TAP(X_ENTER));
+        } else {
+            // when keycode MACRO_1 is released
+        }
+        break;
+
+    case MACRO_2:
+        if (record->event.pressed) {
+            // when keycode MACRO_2 is pressed
+            SEND_STRING(SS_TAP(X_SCROLL_LOCK) 
+						SS_DELAY(100) 
+						SS_TAP(X_SCROLL_LOCK) 
+						SS_DELAY(100) 
+						SS_TAP(X_2)
+						SS_DELAY(100)
+						SS_TAP(X_ENTER));
+        } else {
+            // when keycode MACRO_2 is released
+        }
+        break;
+		
+    case MACRO_3:
+        if (record->event.pressed) {
+            // when keycode MACRO_3 is pressed
+            SEND_STRING(SS_TAP(X_SCROLL_LOCK) 
+						SS_DELAY(100) 
+						SS_TAP(X_SCROLL_LOCK) 
+						SS_DELAY(100) 
+						SS_TAP(X_3)
+						SS_DELAY(100)
+						SS_TAP(X_ENTER));
+        } else {
+            // when keycode MACRO_3 is released
+        }
+        break;
+		
+    case MACRO_4:
+        if (record->event.pressed) {
+            // when keycode MACRO_4 is pressed
+            // SEND_STRING(SS_TAP(X_SCROLL_LOCK) 
+						// SS_DELAY(100) 
+						// SS_TAP(X_SCROLL_LOCK) 
+						// SS_DELAY(100) 
+						// SS_TAP(X_4)
+						// SS_DELAY(100)
+						// SS_TAP(X_ENTER));
+        } else {
+            // when keycode MACRO_4 is released
+        }
+        break;
+    }
+    return true;
+};
 
 // // Note that this might be depreciated as of 10/24/2025. See https://docs.qmk.fm/ChangeLog/20250525#deprecation-of-encoder-update-kb-user
 // bool encoder_update_user(uint8_t index, bool clockwise) {

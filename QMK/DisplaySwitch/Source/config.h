@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#include "config_common.h"
-
 // USB Device descriptor parameters
 #define VENDOR_ID       0xCEEB
 #define PRODUCT_ID      0x0007
@@ -29,13 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RAW_USAGE_PAGE 	0xFF60 // Raw HID communication (added by Exergist)
 #define RAW_USAGE_ID 	0x61 // Raw HID communication (added by Exergist)
 
-
 #define TAPPING_TERM 250 // Speed for double-tap
-
-//#define UNUSED_PINS
 
 #define ENCODER_RESOLUTION 4 // Original default was 2, however a value of 4 works better
 
 // RGB LEDs are ws2812
-#define RGBLIGHT_LIMIT_VAL 180 // Set max brightness for LEDs
+#define RGBLIGHT_LIMIT_VAL 128 // Set max brightness for LEDs (max limit is 255 or RGBLIGHT_LIMIT_VAL)
 #define RGBLIGHT_SLEEP // RGB lighting will be switched off when the host goes to sleep (added by Exergist)

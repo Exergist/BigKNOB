@@ -15,7 +15,6 @@ BOOTLOADER = caterina
 #	Change to "no" to disable the options, or define them in the Makefile in
 #	the appropriate keymap folder that will get included automatically
 
-#ENCODER_ENABLE = yes		# Enable rotary encoders
 ENCODER_MAP_ENABLE = yes	# Enable rotary encoders
 BOOTMAGIC_ENABLE = no		# Virtual DIP switch configuration
 EXTRAKEY_ENABLE = yes		# Audio control and System control
