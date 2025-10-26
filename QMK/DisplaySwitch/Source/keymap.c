@@ -10,13 +10,16 @@
 //
 */
 
-// ***********
-// *  NOTES  *
-// ***********
+// *************
+// *  SUMMARY  *
+// *************
 
 // Custom keymap for bigKNOB by Exergist (2025)
 // Functionality includes:
-//   • STUFF
+//   • Focusing on a given port on the ATEN CS1824 KVMP switch via a corresponding key press
+//   • The LED on a pressed key is briefly illuminated
+//   • Pressing the encoder briefly illuminates the most recently selected key/port
+//   • If no port has been selected recently, then pressing the encoder triggers an error flash
 
 // **********************
 // *  ACKNOWLEDGEMENTS  *
@@ -30,9 +33,7 @@
 // **********************
 
 #include QMK_KEYBOARD_H
-#include "raw_hid.h"
-
-#define _MAIN 0 // In default keymap, not sure if needed
+///#include "raw_hid.h"
 
 // ********************************
 // *  CUSTOM KEYCODE DECLARATION  *
@@ -52,7 +53,8 @@ enum customKeycodes
 // *  GLOBAL VARIABLES  *
 // **********************
 
-uint8_t selectedPort = -1; // Currently selected port on ATEN CS1824 KVMP switch
+int selectedPort = 0; // Currently selected port on ATEN CS1824 KVMP switch
+int ledIlluminationTime = 1000; // Time in milliseconds to illuminate LEDs
 
 // ************
 // *  LAYERS  *
@@ -143,42 +145,55 @@ void keyboard_post_init_user(void) {
 static void all_leds_off_noeeprom(void) {
     for (uint8_t i = 0; i < MATRIX_COLS-1; i++) { 
         rgblight_sethsv_at(0, 0, 0, i); // Loop through and turn off each LED
-		//wait_ms(30); // Brief pause
     }
+}
+
+// Method for flashing RGB LEDs to alert of an issue or unexpected situation
+void error_flash(void)
+{	
+	float timeStep = 125; // Time step for cycling flashing colors (ms)
+	int flashTime = ledIlluminationTime; // Amount of time to flash LEDs (ms)
+	float timer = 0;
+	
+	// Loop over flashTime while cycling displayed colors every timeStep
+	while (timer < flashTime)
+	{
+		rgblight_sethsv_noeeprom(HSV_YELLOW);
+		wait_ms(timeStep);
+		all_leds_off_noeeprom();
+		wait_ms(timeStep);
+		timer += (timeStep * 2);
+	}
 }
 
 // Method run whenever a key is pressed or released
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	uint16_t portHotkey = 0;
     switch (keycode) {
 	case PORT_CHECK:
         if (record->event.pressed) {
             // When keycode PORT_CHECK is pressed
-			if (selectedPort == -1) {
-				// Do nothing, bigKNOB hasn't been used to select a port
+			if (selectedPort == 0) {
+				// bigKNOB hasn't been used to select a port
+				error_flash(); // Flash error pattern on bigKNOB
 			}
 			else {
-				all_leds_off_noeeprom(); // Turn off all LEDs
-				wait_ms(500); // Brief pause
+				///all_leds_off_noeeprom(); // Turn off all LEDs
+				///wait_ms(500); // Brief pause
 				rgblight_sethsv_at(HSV_GREEN, selectedPort-1); // Turn on LED corresponding to selected port
+				wait_ms(ledIlluminationTime); // Brief pause
+				all_leds_off_noeeprom(); // Turn off all LEDs
 			}
         } else {
-            // When keycode PORT_CHECK is pressed
+            // When keycode PORT_CHECK is released
         }
-        break;
+        return true;
 		
     case MACRO_1:
         if (record->event.pressed) {
             // When keycode MACRO_1 is pressed
 			selectedPort = 1; // Store selected port number
-			all_leds_off_noeeprom(); // Turn off all LEDs
-			rgblight_sethsv_at(HSV_GREEN, selectedPort-1); // Turn on LED corresponding to selected port
-            SEND_STRING(SS_TAP(X_SCROLL_LOCK) // Send macro to switch to ATEN CS1824 port 1
-						SS_DELAY(100) 
-						SS_TAP(X_SCROLL_LOCK) 
-						SS_DELAY(100) 
-						SS_TAP(X_1)
-						SS_DELAY(100)
-						SS_TAP(X_ENTER));
+			portHotkey = KC_1; // Store target portHotkey
         } else {
             // When keycode MACRO_1 is released
         }
@@ -188,15 +203,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // When keycode MACRO_2 is pressed
 			selectedPort = 2; // Store selected port number
-			all_leds_off_noeeprom(); // Turn off all LEDs
-			rgblight_sethsv_at(HSV_GREEN, selectedPort-1); // Turn on LED corresponding to selected port
-            SEND_STRING(SS_TAP(X_SCROLL_LOCK) // Send macro to switch to ATEN CS1824 port 2
-						SS_DELAY(100) 
-						SS_TAP(X_SCROLL_LOCK) 
-						SS_DELAY(100) 
-						SS_TAP(X_2)
-						SS_DELAY(100)
-						SS_TAP(X_ENTER));
+			portHotkey = KC_2; // Store target portHotkey
         } else {
             // When keycode MACRO_2 is released
         }
@@ -206,15 +213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // When keycode MACRO_3 is pressed
 			selectedPort = 3; // Store selected port number
-			all_leds_off_noeeprom(); // Turn off all LEDs
-			rgblight_sethsv_at(HSV_GREEN, selectedPort-1); // Turn on LED corresponding to selected port
-            SEND_STRING(SS_TAP(X_SCROLL_LOCK) // Send macro to switch to ATEN CS1824 port 3
-						SS_DELAY(100) 
-						SS_TAP(X_SCROLL_LOCK) 
-						SS_DELAY(100) 
-						SS_TAP(X_3)
-						SS_DELAY(100)
-						SS_TAP(X_ENTER));
+			portHotkey = KC_3; // Store target portHotkey
         } else {
             // When keycode MACRO_3 is released
         }
@@ -224,122 +223,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // When keycode MACRO_4 is pressed
 			selectedPort = 4; // Store selected port number
-			all_leds_off_noeeprom(); // Turn off all LEDs			
-			rgblight_sethsv_at(HSV_GREEN, selectedPort-1); // Turn on LED corresponding to selected port
-            SEND_STRING(SS_TAP(X_SCROLL_LOCK) // Send macro to switch to ATEN CS1824 port 4
-						SS_DELAY(100) 
-						SS_TAP(X_SCROLL_LOCK) 
-						SS_DELAY(100) 
-						SS_TAP(X_4)
-						SS_DELAY(100)
-						SS_TAP(X_ENTER));
+			portHotkey = KC_4; // Store target portHotkey
         } else {
             // When keycode MACRO_4 is released
         }
         break;
     }
+	if (portHotkey == 0) {
+		// Do nothing because a key was released
+	} else {
+		all_leds_off_noeeprom(); // Turn off all LEDs
+		rgblight_sethsv_at(HSV_GREEN, selectedPort-1); // Turn on LED corresponding to selected port
+		
+		// Send series of key taps (macro) to focus on target port on ATEN CS1824 KVMP switch
+		tap_code(KC_SCROLL_LOCK);
+		wait_ms(100);
+		tap_code(KC_SCROLL_LOCK);
+		wait_ms(100);
+		tap_code(portHotkey); // Send the keycode corresponding to the target port number
+		wait_ms(100);
+		tap_code(KC_ENTER);
+		
+		wait_ms(ledIlluminationTime); // Brief pause
+		all_leds_off_noeeprom(); // Turn off all LEDs
+	}
     return true;
-};
-
-// // Method to toggle an LED
-// void toggle_LED(uint16_t lightNumber, bool lightOn) {
-	// if (lightOn == true)
-		// rgblight_sethsv_at(HSV_GREEN, lightNumber); // Set LED to GREEN
-	// else {
-		// wait_ms(500); // Pause for 500 milliseconds
-		// rgblight_sethsv_at(0, 0, 0, lightNumber); // Turn off LED
-	// }
-// }
-
-// // Method run whenever a key is pressed or released
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // switch (keycode) {
-    // case MACRO_1:
-        // if (record->event.pressed) {
-            // // when keycode MACRO_1 is pressed
-			// rgblight_sethsv_at(HSV_GREEN, 0); // Turn on LED 0
-            // SEND_STRING(SS_TAP(X_SCROLL_LOCK) 
-						// SS_DELAY(100) 
-						// SS_TAP(X_SCROLL_LOCK) 
-						// SS_DELAY(100) 
-						// SS_TAP(X_1)
-						// SS_DELAY(100)
-						// SS_TAP(X_ENTER));
-			// toggle_LED(0, false); // Brief pause then turn off LED 0
-        // } else {
-            // // when keycode MACRO_1 is released
-        // }
-        // break;
-
-    // case MACRO_2:
-        // if (record->event.pressed) {
-            // // when keycode MACRO_2 is pressed
-			// toggle_LED(1, true); // Turn on LED 1
-            // SEND_STRING(SS_TAP(X_SCROLL_LOCK) 
-						// SS_DELAY(100) 
-						// SS_TAP(X_SCROLL_LOCK) 
-						// SS_DELAY(100) 
-						// SS_TAP(X_2)
-						// SS_DELAY(100)
-						// SS_TAP(X_ENTER));
-			// toggle_LED(1, false); // Brief pause then turn off LED 1
-        // } else {
-            // // when keycode MACRO_2 is released
-        // }
-        // break;
-		
-    // case MACRO_3:
-        // if (record->event.pressed) {
-            // // when keycode MACRO_3 is pressed
-			// toggle_LED(2, true); // Turn on LED 2
-            // SEND_STRING(SS_TAP(X_SCROLL_LOCK) 
-						// SS_DELAY(100) 
-						// SS_TAP(X_SCROLL_LOCK) 
-						// SS_DELAY(100) 
-						// SS_TAP(X_3)
-						// SS_DELAY(100)
-						// SS_TAP(X_ENTER));
-			// toggle_LED(2, false); // Brief pause then turn off LED 2
-        // } else {
-            // // when keycode MACRO_3 is released
-        // }
-        // break;
-		
-    // case MACRO_4:
-        // if (record->event.pressed) {
-            // // when keycode MACRO_4 is pressed
-			// toggle_LED(3, true); // Turn on LED 3
-            // SEND_STRING(SS_TAP(X_SCROLL_LOCK) 
-						// SS_DELAY(100) 
-						// SS_TAP(X_SCROLL_LOCK) 
-						// SS_DELAY(100) 
-						// SS_TAP(X_4)
-						// SS_DELAY(100)
-						// SS_TAP(X_ENTER));
-			// toggle_LED(3, false); // Brief pause then turn off LED 3
-        // } else {
-            // // when keycode MACRO_4 is released
-        // }
-        // break;
-    // }
-    // return true;
-// };
-
-// // Method to briefly turn on an LED
-// void flash_LED(uint16_t lightNumber, uint16_t lightOnTime){
-	// rgblight_sethsv_at(HSV_GREEN, lightNumber); // Set LED to GREEN
-	// wait_ms(lightOnTime); // Pause for lightOnTime milliseconds
-	// rgblight_sethsv_at(0, 0, 0, lightNumber); // Turn off LED
-// }
-
-// // Note that this might be depreciated as of 10/24/2025. See https://docs.qmk.fm/ChangeLog/20250525#deprecation-of-encoder-update-kb-user
-// bool encoder_update_user(uint8_t index, bool clockwise) {
-	// if (index == 0) {
-		// if (clockwise) {
-			// tap_code(KC_VOLU);
-		// } else {
-			// tap_code(KC_VOLD);
-		// }
-	// }
-	// return true;
-// }
+}
