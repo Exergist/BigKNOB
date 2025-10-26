@@ -17,53 +17,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
 // USB Device descriptor parameters
 #define VENDOR_ID       0xCEEB
 #define PRODUCT_ID      0x0007
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    leafcutterlabs
-#define PRODUCT         bigKNOB
+#define MANUFACTURER    "leafcutterlabs"
+#define PRODUCT         "bigKNOB"
 #define DESCRIPTION     5 key with rotary board
 #define RAW_USAGE_PAGE 	0xFF60 // Raw HID communication (added by Exergist)
 #define RAW_USAGE_ID 	0x61 // Raw HID communication (added by Exergist)
 
-/* Key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
+#define TAPPING_TERM 250 // Speed for double-tap
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *                  NO_DIODE = switches are directly connected to AVR pins
- *
-*/
+#define ENCODER_RESOLUTION 4 // Original default was 2, however a value of 4 works better
 
-// Starting with closest to USB port 
-#define DIRECT_PINS {   \
-    { B7, D4, D6, F6, F7} \
-}
-// Speed for double-tap
-#define TAPPING_TERM 250
-
-#define UNUSED_PINS
-
-/* Rotary encoder 1,2,3 closest to usb port is 0*/
-#define ENCODERS_PAD_A { D0}
-#define ENCODERS_PAD_B { D2}
-#define ENCODER_RESOLUTION 2 // default/suggested
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN C7 // D3 - underglow C7 - backlight
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 5    // Number of LEDs
+// RGB LEDs are ws2812
+#define RGBLIGHT_LIMIT_VAL 128 // Set max value (brightness) for LEDs (max limit is 255 or RGBLIGHT_LIMIT_VAL)
 #define RGBLIGHT_SLEEP // RGB lighting will be switched off when the host goes to sleep (added by Exergist)
-
-#define MUSIC_MASK (keycode != KC_NO)
-#define MIDI_ADVANCED

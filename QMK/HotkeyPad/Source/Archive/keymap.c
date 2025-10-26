@@ -1,12 +1,12 @@
 /*
-//    _       _           _  __  _   _    ____    ____  
-//   | |     (_)         | |/ / | \ | |  / __ \  |  _ \ 
+//    _       _           _  __  _   _    ____    ____
+//   | |     (_)         | |/ / | \ | |  / __ \  |  _ \
 //   | |__    _    __ _  | ' /  |  \| | | |  | | | |_) |
-//   | '_ \  | |  / _` | |  <   | . ` | | |  | | |  _ < 
+//   | '_ \  | |  / _` | |  <   | . ` | | |  | | |  _ <
 //   | |_) | | | | (_| | | . \  | |\  | | |__| | | |_) |
-//   |_.__/  |_|  \__, | |_|\_\ |_| \_|  \____/  |____/ 
-//                 __/ |								
-//                |___/    					  HOTKEY PAD
+//   |_.__/  |_|  \__, | |_|\_\ |_| \_|  \____/  |____/
+//                 __/ |
+//                |___/    
 //
 */
 
@@ -14,7 +14,7 @@
 // *  NOTES  *
 // ***********
 
-// Custom keymap for bigKNOB by Exergist (2025)
+// Custom keymap for bigKNOB by Exergist (2021)
 // Modified from original source code with:
 //   • Layer cycling via encoder rotation
 //   • Next layer via encoder single-tap
@@ -57,6 +57,7 @@
 
 #include QMK_KEYBOARD_H
 #include "raw_hid.h"
+#define RBG_VAL 120
 
 // **********************
 // *  GLOBAL VARIABLES  *
