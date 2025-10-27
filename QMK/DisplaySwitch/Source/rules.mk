@@ -30,6 +30,7 @@ BLUETOOTH_ENABLE = no		# Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes		# Enable WS2812 RGB underlight.
 TAP_DANCE_ENABLE = no		# Double press does something different
 RAW_ENABLE = yes			# Bidirectional communication between QMK and host computer via HID interface (added by Exergist)
+DEFERRED_EXEC_ENABLE = yes  # Enable ability to execute a callback after a specified period of time (added by Exergist)
 
 # Do not enable SLEEP_LED_ENABLE. It uses the same timer as BACKLIGHT_ENABLE.
 SLEEP_LED_ENABLE = no		# Enable breathing sleep for LEDs during USB suspend

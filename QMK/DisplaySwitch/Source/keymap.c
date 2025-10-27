@@ -33,6 +33,7 @@
 // **********************
 
 #include QMK_KEYBOARD_H
+#include "deferred_exec.h"
 
 // ********************************
 // *  CUSTOM KEYCODE DECLARATION  *
@@ -54,6 +55,7 @@ enum customKeycodes
 
 int selectedPort = 0; // Currently selected port on ATEN CS1824 KVMP switch
 int ledIlluminationTime = 1000; // Time in milliseconds to illuminate LEDs
+static deferred_token led_off_tok[RGBLIGHT_LED_COUNT]; // One deferred token per LED
 
 // ************
 // *  KEYMAP  *
@@ -105,12 +107,38 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 void keyboard_post_init_user(void) {
 	rgblight_enable_noeeprom();                             // Enable RGB LEDs
 	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);     // Set LED mode to solid color
-	rgblight_sethsv(0, 0, 0);								// Turn off all LEDs
+
+	// Turn off all LEDs and clear any deferral tokens
+    for (uint8_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
+        rgblight_sethsv_at(0, 0, 0, i);
+        led_off_tok[i] = INVALID_DEFERRED_TOKEN;
+    }
+}
+
+// Turn off one LED when the timer fires
+static uint32_t led_off_cb(uint32_t trigger_time, void *cb_arg) {
+    uint8_t idx = (uint8_t)(uintptr_t)cb_arg;
+    rgblight_sethsv_at(0, 0, 0, idx);
+    led_off_tok[idx] = INVALID_DEFERRED_TOKEN;
+    return 0; // don't reschedule
+}
+
+// Turn on LED now, auto-off after specified time (non-blocking)
+static void light_led_for(uint8_t idx, uint8_t h, uint8_t s, uint8_t v, uint16_t ms) {
+    rgblight_sethsv_at(h, s, v, idx); // show immediately
+
+    if (led_off_tok[idx] != INVALID_DEFERRED_TOKEN) {
+        // Extend the existing pending execution relative to "now"
+        extend_deferred_exec(led_off_tok[idx], ms);
+    } else {
+        // Schedule a fresh deferral
+        led_off_tok[idx] = defer_exec(ms, led_off_cb, (void *)(uintptr_t)idx);
+    }
 }
 
 // Method for turning off all LEDs while keeping them enabled
 static void all_leds_off_noeeprom(void) {
-    for (uint8_t i = 0; i < MATRIX_COLS-1; i++) { 
+    for (uint8_t i = 0; i < RGBLIGHT_LED_COUNT; i++) { 
         rgblight_sethsv_at(0, 0, 0, i); // Loop through and turn off each LED
     }
 }
@@ -145,9 +173,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				error_flash(); // Flash error pattern on bigKNOB
 			}
 			else {
-				rgblight_sethsv_at(HSV_GREEN, selectedPort-1); // Turn on LED corresponding to selected port
-				wait_ms(ledIlluminationTime); // Brief pause
-				all_leds_off_noeeprom(); // Turn off all LEDs
+				// Light the selected port's LED now; it will auto-off after ledIlluminationTime
+				uint8_t idx = (uint8_t)(selectedPort - 1);
+				light_led_for(idx, HSV_GREEN, (uint16_t)ledIlluminationTime);
 			}
         } else {
             // When keycode PORT_CHECK is released
@@ -198,19 +226,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		// Do nothing because a key was released
 	} else {
 		all_leds_off_noeeprom(); // Turn off all LEDs
-		rgblight_sethsv_at(HSV_GREEN, selectedPort-1); // Turn on LED corresponding to selected port
+		light_led_for(selectedPort-1, HSV_GREEN, (uint16_t)ledIlluminationTime); // Turn on LED corresponding to selected port for a period of time (they will auto-off)
 		
 		// Send series of key taps (macro) to focus on target port on ATEN CS1824 KVMP switch
 		tap_code(KC_SCROLL_LOCK);
-		wait_ms(100);
+		wait_ms(80);
 		tap_code(KC_SCROLL_LOCK);
-		wait_ms(100);
+		wait_ms(80);
 		tap_code(portHotkey); // Send the keycode corresponding to the target port number
-		wait_ms(100);
+		wait_ms(80);
 		tap_code(KC_ENTER);
-		
-		wait_ms(ledIlluminationTime); // Brief pause
-		all_leds_off_noeeprom(); // Turn off all LEDs
 	}
     return true;
 }
