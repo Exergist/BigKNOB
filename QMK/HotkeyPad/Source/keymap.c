@@ -33,7 +33,7 @@
 // **********************
 
 // bigKNOB hardware and original source code by Craig Gardner (https://github.com/LeafCutterLabs)
-// ASCII art by patorjk (https://patorjk.com/software/taag/)
+// ASCII art by patorjk (https://patorjk.com/software/taag/, "Big" font)
 
 // **********************
 // *  INCLUDE & DEFINE  *
