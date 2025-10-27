@@ -50,11 +50,9 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
 <summary><b>Keymap</b></summary>
 
  * Encoder
-   * Single-Tap = F13
-   * Double-Tap = WIP
-   * Press-Hold = WIP
-   * Clockwise Rotation = WIP
-   * Counter-Clockwise Rotation = WIP
+   * Single-Tap = Illuminate key corresponding to currently focused port (if available)
+   * Clockwise Rotation = Volume Up
+   * Counter-Clockwise Rotation = Volume Down
  * Button 1 = Switch to port 1
  * Button 2 = Switch to port 2
  * Button 3 = Switch to port 3
@@ -79,12 +77,14 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
 <details>
 <summary> <b>Code-Only Method</b> </summary>
 
- 1. Go through [The QMK Tutorial](https://docs.qmk.fm/#/newbs)
- 2. Create the desired keyboard behavior by building content in the _keymap.c_ file.
- 3. Add (or copy from other bigKNOB efforts) _config.h_ and _rules.mk_ files if needed (most likely YES) into the same location as the _keymap.c_ file.
- 4. When _keymap.c_ and (if applicable) _config.h_ and _rules.mk_ are ready, go back to QMK MSYS and run `qmk compile -kb leafcutterlabs/bigknob -km [your key map name fpr the project]`.
-    * Example: `qmk compile -kb leafcutterlabs/bigknob -km DisplaySwitch`
- 5. WIP - where is the outputted firmware hex file?
+ 1. Go through [The QMK Tutorial](https://docs.qmk.fm/#/newbs). To get started, create a new keymap project within QMK MSYS environment by running `qmk new-keymap -kb [keyboard name] -km [name of project]`
+    * Example: `qmk new-keymap -kb leafcutterlabs/bigknob -km DisplaySwitch`
+ 3. Create the desired keyboard behavior by building content in the _keymap.c_ file.
+ 4. Add (or copy from other bigKNOB efforts) _config.h_ and _rules.mk_ files if needed (most likely YES) into the same location as the _keymap.c_ file.
+ 5. When _keymap.c_ and (if applicable) _config.h_ and _rules.mk_ are ready, go back to QMK MSYS and run `qmk compile -j 0 -kb [keyboard name] -km [name of project]`.
+    * Example: `qmk compile -j 0 -kb leafcutterlabs/bigknob -km DisplaySwitch`
+ 6. The outputted firmware (hex file) is located at `...qmk_firmware\.build\[keyboard_name]_[project_name].hex`
+    * Example: `...qmk_firmware\.build\leafcutterlabs_bigknob_DisplaySwitch.hex`
 
 </details>
 
@@ -94,11 +94,11 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
 
  1. Download/install [QMK Toolbox](https://qmk.fm/toolbox). Then launch the application.
  2. Install device drivers by navigating to the "Tools" tab and selecting "Install Drivers" (requires administrative priviledges).
- 3. Select the hex file, set MCU to atmega32u4, and check Auto-Flash.
+ 3. Select the desired firmware hex file, set MCU to atmega32u4, and check Auto-Flash.
     
     <img width="867" height="702" alt="image" src="https://github.com/user-attachments/assets/0b12e77b-b5c9-4c67-a894-3e2cd32fc850" />
 
- 4. Press the button under the bigKNOB device (may have a small hole in the case). The device should reboot and load the new firmware.
+ 4. Press the button under the bigKNOB device (may have a small hole in the case). The device should reboot and load the new firmware. Make sure to give QMK Toolbox time to complete the flashing process.
     
     <img width="820" height="724" alt="image" src="https://github.com/user-attachments/assets/11d00ad7-0730-4cda-81e5-027d5cc2fb0a" />
 
