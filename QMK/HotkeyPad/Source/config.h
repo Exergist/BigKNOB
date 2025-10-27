@@ -33,4 +33,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // RGB LEDs are ws2812
 #define RGBLIGHT_LIMIT_VAL 128 // Set max value (brightness) for LEDs (max limit is 255 or RGBLIGHT_LIMIT_VAL)
-#define RGBLIGHT_SLEEP // RGB lighting will be switched off when the host goes to sleep (added by Exergist)
+#define RGBLIGHT_SLEEP // RGB lighting will be switched off when the host goes to sleep

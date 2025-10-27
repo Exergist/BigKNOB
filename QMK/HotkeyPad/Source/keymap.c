@@ -10,9 +10,9 @@
 //
 */
 
-// ***********
-// *  NOTES  *
-// ***********
+// *************
+// *  SUMMARY  *
+// *************
 
 // Custom keymap for bigKNOB by Exergist (2025)
 // Modified from original source code with:
@@ -35,22 +35,6 @@
 // bigKNOB hardware and original source code by Craig Gardner (https://github.com/LeafCutterLabs)
 // ASCII art by patorjk (https://patorjk.com/software/taag/)
 
-/* Copyright 2021 Craig Gardner
-  *
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-  * the Free Software Foundation, either version 2 of the License, or
-  * (at your option) any later version.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
-  *
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 // **********************
 // *  INCLUDE & DEFINE  *
 // **********************
@@ -64,7 +48,7 @@
 
 uint8_t selected_layer = 0; // Currently selected layer
 int encoder_buffer = 0; // Counter for encoder input events
-int encoder_threshold = 6; // Number of encoder input events (steps) before layer may cycle
+int encoder_threshold = 3; // Number of encoder input events (steps) before layer may cycle
 
 // ************************
 // *  METHOD DECLARATION  *
@@ -109,8 +93,8 @@ enum layers
 // Method executed every time active layer is changed
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-	encoder_buffer = 0;
-	selected_layer = biton32(state);
+	encoder_buffer = 0; // Reset the encoder_buffer
+	selected_layer = biton32(state); // Capture the number for the selected layer
 	ChangeLedColor(); // Call method to change RGB LEDs color based on current layer
 	return state; // Return current layer (state)
 }
@@ -151,7 +135,7 @@ typedef struct
 // |-----------------------|
 
 // Method for retrieving requested Tap Dance state based on user input
-td_state_t CurrentDance(qk_tap_dance_state_t *state)
+td_state_t CurrentDance(tap_dance_state_t *state)
 {
     if (state->count == 1) // Single-tap
 	{
@@ -173,7 +157,7 @@ static td_tap_t encoderTap_state = {
 };
 
 // Method to run when Tap Dance action finishes
-void EncoderTapFinished(qk_tap_dance_state_t *state, void *user_data)
+void EncoderTapFinished(tap_dance_state_t *state, void *user_data)
 {
     encoderTap_state.state = CurrentDance(state);
     switch (encoderTap_state.state)
@@ -198,7 +182,7 @@ void EncoderTapFinished(qk_tap_dance_state_t *state, void *user_data)
 }
 
 /* // Method to run when Tap Dance action resets
-void EncoderTapReset(qk_tap_dance_state_t *state, void *user_data)
+void EncoderTapReset(tap_dance_state_t *state, void *user_data)
 {
 	switch (encoderTap_state.state)
 	{
@@ -219,7 +203,7 @@ void EncoderTapReset(qk_tap_dance_state_t *state, void *user_data)
 } */
 
 // Tap Dance action definition
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t  tap_dance_actions[] = {
     [ENCODER_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, EncoderTapFinished, NULL)
 	///[ENCODER_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, EncoderTapFinished, EncoderTapReset)
 };
@@ -259,28 +243,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 	
 	[_PRIMARY] = LAYOUT // Layer 0
 	(
-		// ENCODER_DANCE, F13, F14, F15, F16
 		TD(ENCODER_DANCE), KC_F13, KC_F14, KC_F15, KC_F16
 	),
 	[_SECONDARY] = LAYOUT // Layer 1
 	(
-		// ENCODER_DANCE, F17, F18, F19, F20
 		TD(ENCODER_DANCE), KC_F17, KC_F18, KC_F19, KC_F20
 	),
 	[_TERTIARY] = LAYOUT // Layer 2
 	(
-		// ENCODER_DANCE, F21, F22, F23, F24
 		TD(ENCODER_DANCE), KC_F21, KC_F22, KC_F23, KC_F24
 	)
 };
 
-// **********************
-// *  ENCODER ROTATION  *
-// **********************
+// |------------------|
+// | Encoder Rotation |
+// |------------------|
 
 // Method for defining behavior for rotation of the encoder
-// Note that this might be depreciated as of 10/24/2025. See https://docs.qmk.fm/ChangeLog/20250525#deprecation-of-encoder-update-kb-user
-void encoder_update_user(uint8_t index, bool clockwise)
+bool encoder_update_user(uint8_t index, bool clockwise)
 {
 	if (index == 0)
 	{
@@ -307,6 +287,7 @@ void encoder_update_user(uint8_t index, bool clockwise)
 				PreviousLayer(); // Call method to move to previous layer
 		}
 	}
+	return false;
 }
 
 // *******************************
@@ -350,7 +331,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 // | bigKNOB HID Info |
 // |------------------|
 
-// This is specific to your bigKNOB
+// This is specific to your bigKNOB (also see config.h)
 // Vendor ID	= 	0xCEEB
 // Product ID 	= 	0x0007
 // Usage Page 	= 	0xFF60
@@ -390,6 +371,13 @@ void SendHID(void)
 // ************************
 // *  ADDITIONAL METHODS  *
 // ************************
+
+// Method run as the very last task in the keyboard initialization process
+void keyboard_post_init_user(void) {
+	rgblight_enable_noeeprom();                             // Enable RGB LEDs
+	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);     // Set LED mode to solid color
+	MoveToLayer(0);											// Go to the Primary (0) layer
+}
 
 // Calculate highest layer number
 int highest_layer_number = sizeof(keymaps)/sizeof(keymaps[0]) - 1;

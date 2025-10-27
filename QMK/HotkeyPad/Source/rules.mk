@@ -15,10 +15,10 @@ BOOTLOADER = caterina
 #	Change to "no" to disable the options, or define them in the Makefile in
 #	the appropriate keymap folder that will get included automatically
 
-ENCODER_ENABLE = yes		# Enable rotary encoders
+ENCODER_MAP_ENABLE = no	# Enable rotary encoders (see *NOTE)
 BOOTMAGIC_ENABLE = no		# Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no		# Mouse keys
 EXTRAKEY_ENABLE = yes		# Audio control and System control
+MOUSEKEY_ENABLE = no		# Mouse keys (disabled by Exergist)
 CONSOLE_ENABLE = no			# Console for debug
 COMMAND_ENABLE = no			# Commands for debug and configuration
 NKRO_ENABLE = yes			# Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
@@ -29,8 +29,9 @@ UNICODE_ENABLE = yes		# Unicode
 BLUETOOTH_ENABLE = no		# Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes		# Enable WS2812 RGB underlight.
 TAP_DANCE_ENABLE = yes		# Double press does something different
-RAW_ENABLE = yes			# Bidirectional communication between QMK and host computer via HID interface
-# Exergist Notes: added RAW_ENABLE; disabled MOUSEKEY_ENABLE
+RAW_ENABLE = yes			# Bidirectional communication between QMK and host computer via HID interface (added by Exergist)
 
 # Do not enable SLEEP_LED_ENABLE. It uses the same timer as BACKLIGHT_ENABLE.
 SLEEP_LED_ENABLE = no		# Breathing sleep LED during USB suspend
+
+# *NOTE: While ENCODER_MAP_ENABLE = no (disabled), the encoder callback function is implemented in keymap.c. This actually DOES enable the encoder.
