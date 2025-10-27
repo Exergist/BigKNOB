@@ -105,6 +105,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 void keyboard_post_init_user(void) {
 	rgblight_enable_noeeprom();                             // Enable RGB LEDs
 	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);     // Set LED mode to solid color
+	rgblight_sethsv(0, 0, 0);								// Turn off all LEDs
 }
 
 // Method for turning off all LEDs while keeping them enabled
