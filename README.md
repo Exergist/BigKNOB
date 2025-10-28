@@ -42,7 +42,7 @@ Makes function keys F13-F24 readily accessible. Jump to the files [here](https:/
    * Layer 2 = Blue
 </details>
 
-### DisplaySwitch (WORK IN PROGRESS)
+### DisplaySwitch
 Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/desktop-kvm-switches/cs1824/) 4-port KVMP switch. Jump to the files [here](https://github.com/Exergist/BigKNOB/tree/main/QMK/DisplaySwitch/). 
 <details>
 <summary><b>Keymap</b></summary>
