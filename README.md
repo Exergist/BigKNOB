@@ -70,7 +70,7 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
     
     <img width="881" height="819" alt="image" src="https://github.com/user-attachments/assets/253a66f3-f9da-4abe-a734-8a6507911d07" />
 
- 3. Once the firmware is compiled, download and save the hex file.
+ 3. Once the compiling is complete, download and save the firmware hex file.
 </details>
 <details>
 <summary> <b>Code-Only Method</b> </summary>
