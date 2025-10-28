@@ -78,7 +78,7 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
  1. Go through [The QMK Tutorial](https://docs.qmk.fm/#/newbs). To get started, create a new keymap project within QMK MSYS environment by running `qmk new-keymap -kb [keyboard name] -km [name of project]`
     * Example: `qmk new-keymap -kb leafcutterlabs/bigknob -km DisplaySwitch`
  3. Create the desired keyboard behavior by building content in the _keymap.c_ file.
- 4. Add (or copy from other bigKNOB efforts) _config.h_ and _rules.mk_ files if needed (most likely YES) into the same location as the _keymap.c_ file.
+ 4. Add (or copy from other QMK bigKNOB efforts) _config.h_ and _rules.mk_ files if needed (most likely YES) into the same location as the _keymap.c_ file.
  5. When _keymap.c_ and (if applicable) _config.h_ and _rules.mk_ are ready, go back to QMK MSYS and run `qmk compile -j 0 -kb [keyboard name] -km [name of project]`.
     * Example: `qmk compile -j 0 -kb leafcutterlabs/bigknob -km DisplaySwitch`
  6. The outputted firmware (hex file) is located at `...qmk_firmware\.build\[keyboard_name]_[project_name].hex`
@@ -112,7 +112,6 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
  * A [VoiceAttack plugin](https://github.com/Exergist/VAHidInterface) for communicating with BigKNOB is also available.
 
 ## Acknowledgements
-
 * BigKNOB hardware design, original QMK source files, and steps for using the QMK Configurator and the QMK Toolbox are by [Craig Gardner from LeafCutterLabs](https://github.com/LeafCutterLabs/bigKNOB).
 * [QMK](https://qmk.fm/about) is developed and maintained by Jack Humbert of OLKB with contributions from the community (and Hasu).
 * [HidLibrary](https://github.com/mikeobrien/HidLibrary) is developed and maintained by Mike O'Brien and Austin Mullins (and other contributors).
