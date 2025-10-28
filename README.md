@@ -83,7 +83,6 @@ Control device for the [ATEN CS1824](https://www.aten.com/us/en/products/kvm/des
     * Example: `qmk compile -j 0 -kb leafcutterlabs/bigknob -km DisplaySwitch`
  6. The outputted firmware (hex file) is located at `...qmk_firmware\.build\[keyboard_name]_[project_name].hex`
     * Example: `...qmk_firmware\.build\leafcutterlabs_bigknob_DisplaySwitch.hex`
-
 </details>
 
 ### Installing the Firmware
