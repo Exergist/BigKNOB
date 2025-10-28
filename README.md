@@ -3,7 +3,9 @@
 ## What Is This?
 This project includes:
 1. QMK files for various keymaps for the [LeafCutterLabs BigKNOB](https://www.etsy.com/listing/811162898/bigknob-customizable-programmable-usb-c) (v2) macropad controller, which includes 4 RGB LED key switches and a rotary encoder.
-2. C# source for application enabling bidirectional communication between BigKNOB and the host computer. 
+2. C# source for application enabling bidirectional communication between BigKNOB and the host computer.
+
+Jump to the latest release [here](https://github.com/Exergist/BigKNOB/releases). 
 
 ## Key Maps
 ### Layout
