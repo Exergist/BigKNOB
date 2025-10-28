@@ -1,7 +1,5 @@
-![image](https://user-images.githubusercontent.com/31357974/120911848-11029f80-c650-11eb-8896-d142378cb411.png)
-
 # BigKNOB
-
+![image](https://user-images.githubusercontent.com/31357974/120911848-11029f80-c650-11eb-8896-d142378cb411.png)
 ## What Is This?
 This project includes:
 1. QMK files for various keymaps for the [BigKNOB](https://www.etsy.com/listing/811162898/bigknob-customizable-programmable-usb-c) (v2) macropad controller with RGB LED key switches.
